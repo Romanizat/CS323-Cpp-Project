@@ -27,13 +27,11 @@ int main() {
 //        cout << ex.what() << endl;
 //    }
 
-
+    bool flag = true;
     cout << "Da li želite da unesete novog lekara? (DA/NE)" << endl;
     string answer;
     cin >> answer;
     transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
-//    toUppercase(answer);
-    cout << answer << endl;
     if (answer == "DA") {
         auto *l = new Lekar();
         cout << "Unesite ime za Lekara:" << endl;
@@ -46,93 +44,67 @@ int main() {
         getline(cin, answer);
         getline(cin, answer);
         l->setZvanje(answer);
-        cout << "Unesite broj godina staža:" << endl;
-        cin >> answer;
-        int godineStaza;
-        try {
-            godineStaza = stoi(answer);
-            l->setGodineStaza(godineStaza);
-        } catch (invalid_argument ex) {
-            cout << "Uneta vrednost nije broj! " << ex.what() << endl;
-        } catch (InvalidGodStazaException ex) {
-            cout << ex.what() << endl;
+        while (flag) {
+            cout << "Unesite broj godina staža:" << endl;
+            cin >> answer;
+            int godineStaza;
+            try {
+                godineStaza = stoi(answer);
+                l->setGodineStaza(godineStaza);
+                flag = false;
+            } catch (invalid_argument ex) {
+                cout << "Uneta vrednost nije broj! Izuzetak: " << ex.what() << endl;
+            } catch (InvalidGodStazaException ex) {
+                cout << ex.what() << endl;
+            }
         }
 
         l->toString();
+//        TODO:
 //        FileUtil.upisiLekareFajl(l);
         cout << "Lekar upisan!" << endl;
-//
-//    } else if (line.equalsIgnoreCase("NE")) {
-//        System.out.println("Hvala na odgovoru!");
-//    }
-//
-//    System.out.println("Da li želite da unesete novog pacijenta? (DA/NE)");
-//    line = ulaz.nextLine();
-//    if (line.equalsIgnoreCase("DA")) {
-//
-//        Pacijent p = new Pacijent();
-//        System.out.println("Unesite ime pacijenta:");
-//        p.setIme(ulaz.nextLine());
-//        System.out.println("Unesite prezime pacijenta:");
-//        p.setPrezime(ulaz.nextLine());
-//        System.out.println("Unesite pol pacijenta, 'M','F' ili 'DRUGO':");
-//        p.setPol(Pol.valueOf(ulaz.nextLine().toUpperCase()));
-//        System.out.println("Unesite LBO:");
-//        p.setLbo(ulaz.nextLine());
-//        Karton k = new Karton();
-//        System.out.println("Unesite anamnezu, za obustavu unesite karakter '0'");
-//        List <String> anamneza = new ArrayList<>();
-//        String linija = null;
-//        do {
-//            linija = ulaz.nextLine();
-//            if (!linija.equals("0")) {
-//                anamneza.add(linija);
-//            }
-//        } while (!linija.equals("0"));
-//        k.setAnamneza(anamneza);
-//        System.out.println("Unesite alergije, za obustavu unesite karakter '0'");
-//        List <String> alergije = new ArrayList<>();
-//        do {
-//            linija = ulaz.nextLine();
-//            if (!linija.equals("0")) {
-//                alergije.add(linija);
-//            }
-//        } while (!linija.equals("0"));
-//        k.setAlergije(alergije);
-//        System.out.println("Unesite datum overe knjižice, formata 'DD-MM-GGGG'");
-//
-//        boolean tester = true;
-//        while (tester) {
-//            String datum = ulaz.nextLine();
-//            try {
-//                k.setDatumOvereKnjizice(datum);
-//                tester = false;
-//            } catch (NevalidanFormatDatumaException ex) {
-//                System.out.println(ex.getMessage());
-//            } catch (NevalidanDatumException ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//        }
-//        System.out.println(
-//                "Unesite vakcine koje je primio pacijent:\n {BCG, HB, HBig, DTP, OPV, Hib, MMR}\n Za obustavu unesite karakter '0'");
-//        List <String> vakcine = new ArrayList<>();
-//        do {
-//            linija = ulaz.nextLine();
-//            if (!linija.equals("0")) {
-//                vakcine.add(linija);
-//            }
-//        } while (!linija.equals("0"));
-//        k.setVakcine(vakcine);
-//        p.setKarton(k);
-//
-//        FileUtil.upisiPacijenteFajl(p);
-//        System.out.println("Pacijent upisan!");
-//
-//    } else if (line.equalsIgnoreCase("NE")) {
-//        System.out.println("Hvala na odgovoru!");
-//    }
 
-        cout << "Hvala Vam!" << endl;
-        return 0;
+    } else if (answer == "NE") {
+        cout << "Hvala na odgovoru!" << endl;
     }
+
+    cout << "Da li želite da unesete novog pacijenta? (DA/NE)" << endl;
+    cin >> answer;
+    transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+    if (answer == "DA") {
+        auto *p = new Pacijent();
+        cout << "Unesite ime pacijenta:" << endl;
+        cin >> answer;
+        p->setIme(answer);
+        cout << "Unesite prezime pacijenta:" << endl;
+        cin >> answer;
+        p->setPrezime(answer);
+        cout << "Unesite LBO pacijenta:" << endl;
+        cin >> answer;
+        p->setLbo(answer);
+        while (flag) {
+            cout << "Unesite datum overe knjižice pacijenta:" << endl;
+            cin >> answer;
+            flag = true;
+            try {
+                p->setDatumOvereKnjizice(answer);
+                flag = false;
+            } catch (InvalidDatumException ex) {
+                cout << ex.what() << endl;
+            }
+        }
+        cout << "Unesite dijagnozu pacijenta:" << endl;
+        getline(cin, answer);
+        getline(cin, answer);
+        p->setDijagnoza(answer);
+//        TODO:
+//        FileUtil.upisiPacijenteFajl(p);
+        cout << "Pacijent upisan!" << endl;
+        p->toString();
+    } else if (answer == "NE") {
+        cout << "Hvala na odgovoru!" << endl;
+    }
+
+    cout << "Hvala Vam!" << endl;
+    return 0;
 }

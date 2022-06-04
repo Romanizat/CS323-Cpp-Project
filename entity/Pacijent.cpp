@@ -65,3 +65,10 @@ string Pacijent::izracunaj(int brojDana, int tarifa) {
     return "Pacijent " + this->ime + " " + this->prezime +
            "je za " + to_string(brojDana) + " dana zadužen " + to_string(zaduzenje);
 }
+
+void Pacijent::toString() {
+    Osoba::toString();
+    cout << ", LBO: " << this->lbo << ", "
+         << "Datum overe knjižice: " << this->datumOvereKnjizice << ", "
+         << "Dijagnoza: " << this->dijagnoza << endl;
+}

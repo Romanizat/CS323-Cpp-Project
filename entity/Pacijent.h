@@ -36,6 +36,8 @@ public:
     void setDatumOvereKnjizice(const string &datumOvereKnjizice);
 
     string izracunaj(int brojDana, int tarifa);
+
+    void toString() override;
 };
 
 
