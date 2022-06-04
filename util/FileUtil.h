@@ -16,7 +16,7 @@ private:
 
 public:
 //    static string readFile(string fileName);
-    static void writePacijentToFile(const string filename, Pacijent &pacijent);
+    static void writePacijentToFile(const string& filename, Pacijent &pacijent);
 };
 
 

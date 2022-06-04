@@ -7,10 +7,14 @@
 
 using namespace std;
 
-void FileUtil::writePacijentToFile(const string filename, Pacijent &pacijent) {
+void FileUtil::writePacijentToFile(const string &filename, Pacijent &pacijent) {
     ofstream file;
     file.open(filename, ios::app);
-    file << pacijent.getLbo() << "~" << pacijent.getDijagnoza() << "~" << pacijent.getDatumOvereKnjizice() << endl;
+    file << pacijent.getIme()
+         << "~" << pacijent.getPrezime()
+         << "~" << pacijent.getLbo()
+         << "~" << pacijent.getDijagnoza()
+         << "~" << pacijent.getDatumOvereKnjizice() << endl;
     file.close();
 }
 
