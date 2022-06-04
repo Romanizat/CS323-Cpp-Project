@@ -4,6 +4,7 @@
 #include "entity/Pacijent.h"
 #include "exception/InvalidDatumException.h"
 #include "exception/InvalidGodStazaException.h"
+#include "util/FileUtil.h"
 #include <algorithm>
 #include <string>
 #include <sstream>
@@ -15,6 +16,8 @@ void toUppercase(string str) {
 }
 
 int main() {
+    const string pacijentiFilename = "pacijenti.txt";
+    const string lekariFilename = "lekari.txt";
 ////    Osoba *osoba = new Pacijent();
 ////    auto& p = dynamic_cast<Pacijent&>(*osoba);
 //    auto *p = new Pacijent();
@@ -97,8 +100,7 @@ int main() {
         getline(cin, answer);
         getline(cin, answer);
         p->setDijagnoza(answer);
-//        TODO:
-//        FileUtil.upisiPacijenteFajl(p);
+        FileUtil::writePacijentToFile(pacijentiFilename, *p);
         cout << "Pacijent upisan!" << endl;
         p->toString();
     } else if (answer == "NE") {
