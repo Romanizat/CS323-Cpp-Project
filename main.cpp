@@ -106,6 +106,20 @@ int main() {
     } else if (answer == "NE") {
         cout << "Hvala na odgovoru!" << endl;
     }
+    cout << "Da li želite da vidite sve upisane pacijente? (DA/NE)" << endl;
+    cin >> answer;
+    transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+    if (answer == "DA") {
+        auto pacijenti = FileUtil::readPacijentiFromFile(pacijentiFilename);
+//        TODO:
+// iterate through pacijenti and print them using std::iterator
+        for (auto p : pacijenti) {
+            p.toString();
+        }
+    } else if (answer == "NE") {
+        cout << "Hvala na odgovoru!" << endl;
+    }
+
 
     cout << "Hvala Vam!" << endl;
     return 0;
