@@ -111,10 +111,11 @@ int main() {
     transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
     if (answer == "DA") {
         auto pacijenti = FileUtil::readPacijentiFromFile(pacijentiFilename);
-//        TODO:
-// iterate through pacijenti and print them using std::iterator
-        for (auto p : pacijenti) {
-            p.toString();
+//        list<Pacijent>::iterator pacijentIterator = pacijenti.begin();
+        auto pacijentIterator = pacijenti.begin();
+        while (pacijentIterator != pacijenti.end()) {
+            pacijentIterator->toString();
+            pacijentIterator++;
         }
     } else if (answer == "NE") {
         cout << "Hvala na odgovoru!" << endl;
