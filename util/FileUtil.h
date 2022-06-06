@@ -16,9 +16,9 @@ private:
     FileUtil();
 
 public:
-    static void writePacijentToFile(const string &filename, Pacijent &pacijent);
+    static void writePacijentToFile(Pacijent &pacijent);
 
-    static list<Pacijent> readPacijentiFromFile(const string &filename);
+    static list<Pacijent> readPacijentiFromFile();
 };
 
 

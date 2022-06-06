@@ -7,9 +7,12 @@
 
 using namespace std;
 
-void FileUtil::writePacijentToFile(const string &filename, Pacijent &pacijent) {
+const static string pacijentiFilename = "pacijenti.txt";
+const static string lekariFilename = "lekari.txt";
+
+void FileUtil::writePacijentToFile(Pacijent &pacijent) {
     ofstream file;
-    file.open(filename, ios::app);
+    file.open(pacijentiFilename, ios::app);
     file << pacijent.getIme()
          << "~" << pacijent.getPrezime()
          << "~" << pacijent.getLbo()
@@ -18,10 +21,10 @@ void FileUtil::writePacijentToFile(const string &filename, Pacijent &pacijent) {
     file.close();
 }
 
-list<Pacijent> FileUtil::readPacijentiFromFile(const string &filename) {
+list<Pacijent> FileUtil::readPacijentiFromFile() {
     list<Pacijent> pacijenti;
     ifstream file;
-    file.open(filename);
+    file.open(pacijentiFilename);
     string line;
     while (getline(file, line)) {
         string ime, prezime, lbo, dijagnoza, datumOvereKnjizice;

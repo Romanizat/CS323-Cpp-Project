@@ -16,8 +16,6 @@ void toUppercase(string str) {
 }
 
 int main() {
-    const string pacijentiFilename = "pacijenti.txt";
-    const string lekariFilename = "lekari.txt";
 ////    Osoba *osoba = new Pacijent();
 ////    auto& p = dynamic_cast<Pacijent&>(*osoba);
 //    auto *p = new Pacijent();
@@ -100,7 +98,7 @@ int main() {
         getline(cin, answer);
         getline(cin, answer);
         p->setDijagnoza(answer);
-        FileUtil::writePacijentToFile(pacijentiFilename, *p);
+        FileUtil::writePacijentToFile(*p);
         cout << "Pacijent upisan!" << endl;
         p->toString();
     } else if (answer == "NE") {
@@ -110,7 +108,7 @@ int main() {
     cin >> answer;
     transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
     if (answer == "DA") {
-        auto pacijenti = FileUtil::readPacijentiFromFile(pacijentiFilename);
+        auto pacijenti = FileUtil::readPacijentiFromFile();
 //        list<Pacijent>::iterator pacijentIterator = pacijenti.begin();
         auto pacijentIterator = pacijenti.begin();
         while (pacijentIterator != pacijenti.end()) {
