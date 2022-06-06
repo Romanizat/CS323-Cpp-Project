@@ -5,6 +5,7 @@
 #include "FileUtil.h"
 #include "../exception/InvalidDatumException.h"
 #include "../exception/InvalidGodStazaException.h"
+#include "../exception/InvalidLboException.h"
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -41,7 +42,11 @@ list<Pacijent> FileUtil::readPacijentiFromFile() {
         auto *p = new Pacijent();
         p->setIme(ime);
         p->setPrezime(prezime);
-        p->setLbo(lbo);
+        try {
+            p->setLbo(lbo);
+        } catch (InvalidLboException &e) {
+            cout << e.what() << endl;
+        }
         p->setDijagnoza(dijagnoza);
         try {
             p->setDatumOvereKnjizice(datumOvereKnjizice);

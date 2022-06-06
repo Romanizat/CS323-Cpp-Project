@@ -7,6 +7,7 @@
 #include "util/StringUtil.h"
 #include "exception/InvalidBrojDanaException.h"
 #include "exception/UnsupportedValutaException.h"
+#include "exception/InvalidLboException.h"
 #include <algorithm>
 #include <string>
 
@@ -105,9 +106,18 @@ int main() {
         cout << "Unesite prezime pacijenta:" << endl;
         cin >> answer;
         p->setPrezime(answer);
-        cout << "Unesite LBO pacijenta:" << endl;
-        cin >> answer;
-        p->setLbo(answer);
+        flag = true;
+        while (flag) {
+            cout << "Unesite LBO pacijenta:" << endl;
+            cin >> answer;
+            try {
+                p->setLbo(answer);
+                flag = false;
+            } catch (InvalidLboException &ex) {
+                cout << ex.what() << endl;
+            }
+        }
+        flag = true;
         while (flag) {
             cout << "Unesite datum overe knjižice pacijenta:" << endl;
             cin >> answer;

@@ -6,12 +6,17 @@
 #include "../exception/InvalidDatumException.h"
 #include "../exception/InvalidBrojDanaException.h"
 #include "../util/StringUtil.h"
+#include "../exception/InvalidLboException.h"
 
 const string &Pacijent::getLbo() const {
     return lbo;
 }
 
 void Pacijent::setLbo(const string &lbo) {
+    if (lbo.length() != 11 || !regex_match(lbo, regex("[0-9]+"))) {
+        InvalidLboException invalidLboException;
+        throw invalidLboException;
+    }
     Pacijent::lbo = lbo;
 }
 
@@ -28,7 +33,7 @@ const string &Pacijent::getDatumOvereKnjizice() const {
 }
 
 void Pacijent::setDatumOvereKnjizice(const string &datumOvereKnjizice) {
-    if (this->isValidDate(datumOvereKnjizice)) {
+    if (StringUtil::isValidDate(datumOvereKnjizice)) {
         Pacijent::datumOvereKnjizice = datumOvereKnjizice;
     } else {
         InvalidDatumException invalidDatumException;
