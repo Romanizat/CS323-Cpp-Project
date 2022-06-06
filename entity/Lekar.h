@@ -24,6 +24,14 @@ public:
     string izracunaj(int brojDana, int tarifa) override;
 
     void toString() override;
+
+    bool operator<(const Lekar &rhs) const;
+
+    bool operator>(const Lekar &rhs) const;
+
+    bool operator<=(const Lekar &rhs) const;
+
+    bool operator>=(const Lekar &rhs) const;
 };
 
 

@@ -65,3 +65,19 @@ string Lekar::izracunaj(int brojDana, int tarifa) {
            "je za " + to_string(brojDana) + " dana zaradio " + to_string(zarada);
 }
 
+bool Lekar::operator<(const Lekar &rhs) const {
+    return godineStaza < rhs.godineStaza;
+}
+
+bool Lekar::operator>(const Lekar &rhs) const {
+    return rhs < *this;
+}
+
+bool Lekar::operator<=(const Lekar &rhs) const {
+    return !(rhs < *this);
+}
+
+bool Lekar::operator>=(const Lekar &rhs) const {
+    return !(*this < rhs);
+}
+

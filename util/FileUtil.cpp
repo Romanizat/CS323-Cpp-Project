@@ -85,11 +85,16 @@ list<Lekar> FileUtil::readLekariFromFile() {
 
 void FileUtil::writeLekarToFile(Lekar &lekar) {
     ofstream file;
-    file.open(lekariFilename, ios::app);
-    file << lekar.getIme()
-         << "~" << lekar.getPrezime()
-         << "~" << lekar.getZvanje()
-         << "~" << lekar.getGodineStaza() << endl;
+    auto lekari = readLekariFromFile();
+    lekari.push_back(lekar);
+    lekari.sort();
+    file.open(lekariFilename);
+    for (auto &lekar1: lekari) {
+        file << lekar1.getIme()
+             << "~" << lekar1.getPrezime()
+             << "~" << lekar1.getZvanje()
+             << "~" << lekar1.getGodineStaza() << endl;
+    }
     file.close();
 }
 
