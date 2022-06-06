@@ -45,4 +45,39 @@ list<Pacijent> FileUtil::readPacijentiFromFile() {
     return pacijenti;
 }
 
+list<Lekar> FileUtil::readLekariFromFile() {
+    list<Lekar> lekari;
+    ifstream file;
+    file.open(lekariFilename);
+    string line;
+    while (getline(file, line)) {
+        string ime, prezime, zvanje;
+        int godineStaza;
+        stringstream ss(line);
+        getline(ss, ime, '~');
+        getline(ss, prezime, '~');
+        getline(ss, zvanje, '~');
+        ss >> godineStaza;
+        auto *l = new Lekar();
+        l->setIme(ime);
+        l->setPrezime(prezime);
+        l->setGodineStaza(godineStaza);
+        l->setZvanje(zvanje);
+        lekari.push_back(*l);
+    }
+    return lekari;
+}
+
+void FileUtil::writeLekarToFile(Lekar &lekar) {
+    cout << "ovde" << endl;
+    ofstream file;
+    file.open(lekariFilename, ios::app);
+    file << lekar.getIme()
+         << "~" << lekar.getPrezime()
+         << "~" << lekar.getZvanje()
+         << "~" << lekar.getGodineStaza() << endl;
+    file.close();
+}
+
+
 FileUtil::FileUtil() = default;

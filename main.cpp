@@ -60,11 +60,24 @@ int main() {
             }
         }
 
-        l->toString();
-//        TODO:
 //        FileUtil.upisiLekareFajl(l);
+        FileUtil::writeLekarToFile(*l);
         cout << "Lekar upisan!" << endl;
 
+    } else if (answer == "NE") {
+        cout << "Hvala na odgovoru!" << endl;
+    }
+
+    cout << "Da li želite da vidite sve upisane lekare? (DA/NE)" << endl;
+    cin >> answer;
+    transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+    if (answer == "DA") {
+        auto lekari = FileUtil::readLekariFromFile();
+        auto lekarIterator = lekari.begin();
+        while (lekarIterator != lekari.end()) {
+            lekarIterator->toString();
+            lekarIterator++;
+        }
     } else if (answer == "NE") {
         cout << "Hvala na odgovoru!" << endl;
     }

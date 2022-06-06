@@ -8,6 +8,7 @@
 #include <iostream>
 #include <list>
 #include "../entity/Pacijent.h"
+#include "../entity/Lekar.h"
 
 using namespace std;
 
@@ -19,6 +20,10 @@ public:
     static void writePacijentToFile(Pacijent &pacijent);
 
     static list<Pacijent> readPacijentiFromFile();
+
+    static list<Lekar> readLekariFromFile();
+
+    static void writeLekarToFile(Lekar &lekar);
 };
 
 
