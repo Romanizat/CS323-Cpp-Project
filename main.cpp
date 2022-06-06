@@ -1,5 +1,4 @@
 #include <iostream>
-#include "entity/Osoba.h"
 #include "entity/Lekar.h"
 #include "entity/Pacijent.h"
 #include "exception/InvalidDatumException.h"
@@ -7,7 +6,6 @@
 #include "util/FileUtil.h"
 #include <algorithm>
 #include <string>
-#include <sstream>
 
 using namespace std;
 
@@ -53,14 +51,13 @@ int main() {
                 godineStaza = stoi(answer);
                 l->setGodineStaza(godineStaza);
                 flag = false;
-            } catch (invalid_argument ex) {
+            } catch (invalid_argument &ex) {
                 cout << "Uneta vrednost nije broj! Izuzetak: " << ex.what() << endl;
-            } catch (InvalidGodStazaException ex) {
+            } catch (InvalidGodStazaException &ex) {
                 cout << ex.what() << endl;
             }
         }
 
-//        FileUtil.upisiLekareFajl(l);
         FileUtil::writeLekarToFile(*l);
         cout << "Lekar upisan!" << endl;
 
@@ -103,7 +100,7 @@ int main() {
             try {
                 p->setDatumOvereKnjizice(answer);
                 flag = false;
-            } catch (InvalidDatumException ex) {
+            } catch (InvalidDatumException &ex) {
                 cout << ex.what() << endl;
             }
         }

@@ -3,7 +3,10 @@
 //
 
 #include "FileUtil.h"
+#include "../exception/InvalidDatumException.h"
+#include "../exception/InvalidGodStazaException.h"
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -39,7 +42,11 @@ list<Pacijent> FileUtil::readPacijentiFromFile() {
         p->setPrezime(prezime);
         p->setLbo(lbo);
         p->setDijagnoza(dijagnoza);
-        p->setDatumOvereKnjizice(datumOvereKnjizice);
+        try {
+            p->setDatumOvereKnjizice(datumOvereKnjizice);
+        } catch (InvalidDatumException &ex) {
+            cout << ex.what() << endl;
+        }
         pacijenti.push_back(*p);
     }
     return pacijenti;
@@ -61,7 +68,14 @@ list<Lekar> FileUtil::readLekariFromFile() {
         auto *l = new Lekar();
         l->setIme(ime);
         l->setPrezime(prezime);
-        l->setGodineStaza(godineStaza);
+        try {
+            godineStaza = stoi(godineStaza);
+            l->setGodineStaza(godineStaza);
+        } catch (invalid_argument &ex) {
+            cout << "Uneta vrednost nije broj! Izuzetak: " << ex.what() << endl;
+        } catch (InvalidGodStazaException &ex) {
+            cout << ex.what() << endl;
+        }
         l->setZvanje(zvanje);
         lekari.push_back(*l);
     }
@@ -69,7 +83,6 @@ list<Lekar> FileUtil::readLekariFromFile() {
 }
 
 void FileUtil::writeLekarToFile(Lekar &lekar) {
-    cout << "ovde" << endl;
     ofstream file;
     file.open(lekariFilename, ios::app);
     file << lekar.getIme()
