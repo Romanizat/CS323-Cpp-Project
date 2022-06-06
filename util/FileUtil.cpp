@@ -7,6 +7,7 @@
 #include "../exception/InvalidGodStazaException.h"
 #include <fstream>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -58,18 +59,18 @@ list<Lekar> FileUtil::readLekariFromFile() {
     file.open(lekariFilename);
     string line;
     while (getline(file, line)) {
-        string ime, prezime, zvanje;
+        string ime, prezime, zvanje, godineStazaStr;
         int godineStaza;
         stringstream ss(line);
         getline(ss, ime, '~');
         getline(ss, prezime, '~');
         getline(ss, zvanje, '~');
-        ss >> godineStaza;
+        getline(ss, godineStazaStr, '~');
         auto *l = new Lekar();
         l->setIme(ime);
         l->setPrezime(prezime);
         try {
-            godineStaza = stoi(godineStaza);
+            godineStaza = stoi(godineStazaStr);
             l->setGodineStaza(godineStaza);
         } catch (invalid_argument &ex) {
             cout << "Uneta vrednost nije broj! Izuzetak: " << ex.what() << endl;

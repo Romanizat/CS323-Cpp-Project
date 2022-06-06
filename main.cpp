@@ -9,23 +9,7 @@
 
 using namespace std;
 
-void toUppercase(string str) {
-    transform(str.begin(), str.end(), str.begin(), ::toupper);
-}
-
 int main() {
-////    Osoba *osoba = new Pacijent();
-////    auto& p = dynamic_cast<Pacijent&>(*osoba);
-//    auto *p = new Pacijent();
-//    p->setIme("Pera");
-//    p->setPrezime("Peric");
-//    p->setLbo("012346578");
-//    try {
-//        p->setDatumOvereKnjizice("dsada");
-//    } catch (InvalidDatumException ex) {
-//        cout << ex.what() << endl;
-//    }
-
     bool flag = true;
     cout << "Da li želite da unesete novog lekara? (DA/NE)" << endl;
     string answer;
