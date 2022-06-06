@@ -40,7 +40,7 @@ void Pacijent::setDatumOvereKnjizice(const string &datumOvereKnjizice) {
  * @param tarifa
  * @return
  */
-string Pacijent::izracunaj(int brojDana, int tarifa) {
+string Pacijent::izracunaj(int brojDana, int tarifa, Valuta valuta) {
     double vrednostTarife;
     switch (tarifa) {
         case 1:
@@ -60,6 +60,9 @@ string Pacijent::izracunaj(int brojDana, int tarifa) {
             break;
         default:
             vrednostTarife = 0;
+    }
+    if (valuta == Valuta::EUR) {
+        vrednostTarife = vrednostTarife / 120;
     }
     double zaduzenje = brojDana * vrednostTarife;
     return "Pacijent " + this->ime + " " + this->prezime +

@@ -6,6 +6,7 @@
 #define CS323_PROJEKAT2_MARKOJOSIFOVIC4494_OSOBA_H
 
 #include <iostream>
+#include "enum/Valuta.h"
 
 using namespace std;
 
@@ -22,9 +23,7 @@ public:
 
     void setPrezime(const string &prezime);
 
-//    virtual int uporedi(Osoba *o)=0;
-
-    virtual string izracunaj(int brojDana, int tarifa) = 0;
+    virtual string izracunaj(int brojDana, int tarifa, Valuta valuta) = 0;
 
     virtual void toString();
 };

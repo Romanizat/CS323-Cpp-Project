@@ -21,7 +21,7 @@ public:
 
     void setZvanje(const string &zvanje);
 
-    string izracunaj(int brojDana, int tarifa) override;
+    string izracunaj(int brojDana, int tarifa, Valuta valuta) override;
 
     void toString() override;
 

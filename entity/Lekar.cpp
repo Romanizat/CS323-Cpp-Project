@@ -4,6 +4,7 @@
 
 #include "Lekar.h"
 #include "../exception/InvalidGodStazaException.h"
+#include "../util/StringUtil.h"
 
 int Lekar::getGodineStaza() const {
     return godineStaza;
@@ -39,7 +40,7 @@ void Lekar::toString() {
  * @param tarifa
  * @return
  */
-string Lekar::izracunaj(int brojDana, int tarifa) {
+string Lekar::izracunaj(int brojDana, int tarifa, Valuta valuta) {
     double vrednostTarife;
     switch (tarifa) {
         case 1:
@@ -60,9 +61,15 @@ string Lekar::izracunaj(int brojDana, int tarifa) {
         default:
             vrednostTarife = 0;
     }
+    if (valuta == Valuta::EUR) {
+        vrednostTarife = vrednostTarife / 120;
+    } else if (valuta == Valuta::USD) {
+        vrednostTarife = vrednostTarife / 110;
+    }
     double zarada = brojDana * vrednostTarife;
     return "Lekar " + this->ime + " " + this->prezime +
-           "je za " + to_string(brojDana) + " dana zaradio " + to_string(zarada);
+           "je za " + to_string(brojDana) + " dana zaradio " + to_string(zarada)
+           + " " + StringUtil::getValutaValue(valuta);
 }
 
 bool Lekar::operator<(const Lekar &rhs) const {
