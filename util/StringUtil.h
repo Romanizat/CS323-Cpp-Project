@@ -16,6 +16,8 @@ private:
 
 public:
     static string getValutaValue(Valuta valuta);
+
+    static Valuta ValutaValueOf(const string& valuta);
 };
 
 

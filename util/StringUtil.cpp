@@ -3,6 +3,7 @@
 //
 
 #include "StringUtil.h"
+#include "../exception/UnsupportedValutaException.h"
 
 StringUtil::StringUtil() = default;
 
@@ -16,5 +17,18 @@ string StringUtil::getValutaValue(Valuta valuta) {
             return "USD";
         default:
             return "";
+    }
+}
+
+Valuta StringUtil::ValutaValueOf(const string& valuta) {
+    if (valuta == "EUR") {
+        return Valuta::EUR;
+    } else if (valuta == "RSD") {
+        return Valuta::RSD;
+    } else if (valuta == "USD") {
+        return Valuta::USD;
+    } else {
+        UnsupportedValutaException unSupportedValutaException;
+        throw unSupportedValutaException;
     }
 }

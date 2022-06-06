@@ -4,6 +4,8 @@
 
 #include "Pacijent.h"
 #include "../exception/InvalidDatumException.h"
+#include "../exception/InvalidBrojDanaException.h"
+#include "../util/StringUtil.h"
 
 const string &Pacijent::getLbo() const {
     return lbo;
@@ -42,6 +44,10 @@ void Pacijent::setDatumOvereKnjizice(const string &datumOvereKnjizice) {
  */
 string Pacijent::izracunaj(int brojDana, int tarifa, Valuta valuta) {
     double vrednostTarife;
+    if (brojDana < 0) {
+        InvalidBrojDanaException invalidBrojDanaException;
+        throw invalidBrojDanaException;
+    }
     switch (tarifa) {
         case 1:
             vrednostTarife = 20000;
@@ -63,10 +69,13 @@ string Pacijent::izracunaj(int brojDana, int tarifa, Valuta valuta) {
     }
     if (valuta == Valuta::EUR) {
         vrednostTarife = vrednostTarife / 120;
+    } else if (valuta == Valuta::USD) {
+        vrednostTarife = vrednostTarife / 110;
     }
     double zaduzenje = brojDana * vrednostTarife;
     return "Pacijent " + this->ime + " " + this->prezime +
-           "je za " + to_string(brojDana) + " dana zadužen " + to_string(zaduzenje);
+           " je za " + to_string(brojDana) + " dana zadužen " + to_string(zaduzenje)
+           + " " + StringUtil::getValutaValue(valuta);
 }
 
 void Pacijent::toString() {

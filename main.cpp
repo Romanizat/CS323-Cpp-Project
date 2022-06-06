@@ -4,6 +4,9 @@
 #include "exception/InvalidDatumException.h"
 #include "exception/InvalidGodStazaException.h"
 #include "util/FileUtil.h"
+#include "util/StringUtil.h"
+#include "exception/InvalidBrojDanaException.h"
+#include "exception/UnsupportedValutaException.h"
 #include <algorithm>
 #include <string>
 
@@ -11,6 +14,8 @@ using namespace std;
 
 int main() {
     bool flag = true;
+    int brojDana;
+    int tarifa;
     cout << "Da li želite da unesete novog lekara? (DA/NE)" << endl;
     string answer;
     cin >> answer;
@@ -44,6 +49,32 @@ int main() {
 
         FileUtil::writeLekarToFile(*l);
         cout << "Lekar upisan!" << endl;
+
+        cout << "Da li želite da izračunate zaradu ovog lekara? (DA/NE)" << endl;
+        cin >> answer;
+        transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+        if (answer == "DA") {
+            flag = true;
+            while (flag) {
+                cout << "Unesite broj dana za koje želite da izračunate zaradu:" << endl;
+                cin >> brojDana;
+                cout << "Unesite tarifu za koju želite da izračunate zaradu (1-5):" << endl;
+                cin >> tarifa;
+                cout << "Koja valuta? (RSD/EUR/USD)" << endl;
+                cin >> answer;
+                transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+                try {
+                    cout << l->izracunaj(brojDana, tarifa, StringUtil::ValutaValueOf(answer)) << endl;
+                    flag = false;
+                } catch (InvalidBrojDanaException &ex) {
+                    cout << ex.what() << endl;
+                } catch (UnsupportedValutaException &ex) {
+                    cout << ex.what() << endl;
+                }
+            }
+        } else if (answer == "NE") {
+            cout << "Hvala na odgovoru!" << endl;
+        }
 
     } else if (answer == "NE") {
         cout << "Hvala na odgovoru!" << endl;
@@ -94,7 +125,32 @@ int main() {
         p->setDijagnoza(answer);
         FileUtil::writePacijentToFile(*p);
         cout << "Pacijent upisan!" << endl;
-        p->toString();
+
+        cout << "Da li želite da izračunate zaduženje ovog pacijenta? (DA/NE)" << endl;
+        cin >> answer;
+        transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+        if (answer == "DA") {
+            flag = true;
+            while (flag) {
+                cout << "Unesite broj dana za koje želite da izračunate zaduženje:" << endl;
+                cin >> brojDana;
+                cout << "Unesite tarifu za koju želite da izračunate zaduženje (1-5):" << endl;
+                cin >> tarifa;
+                cout << "Koja valuta? (RSD/EUR/USD)" << endl;
+                cin >> answer;
+                transform(answer.begin(), answer.end(), answer.begin(), ::toupper);
+                try {
+                    cout << p->izracunaj(brojDana, tarifa, StringUtil::ValutaValueOf(answer)) << endl;
+                    flag = false;
+                } catch (InvalidBrojDanaException &ex) {
+                    cout << ex.what() << endl;
+                } catch (UnsupportedValutaException &ex) {
+                    cout << ex.what() << endl;
+                }
+            }
+        } else if (answer == "NE") {
+            cout << "Hvala na odgovoru!" << endl;
+        }
     } else if (answer == "NE") {
         cout << "Hvala na odgovoru!" << endl;
     }
